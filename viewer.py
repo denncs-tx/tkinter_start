@@ -1,26 +1,17 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
 from PIL import ImageTk, Image
 
-root = Tk()
-root.title("Dennis Creative Solutions Image Viewer")
-root.iconbitmap('file.ico')
-
-my_img1 = ImageTk.PhotoImage(Image.open("images/0001.png").resize((500, 500), Image.ANTIALIAS))
-my_img2 = ImageTk.PhotoImage(Image.open("images/0002.png").resize((500, 500), Image.ANTIALIAS))
-my_img3 = ImageTk.PhotoImage(Image.open("images/0003.png").resize((500, 500), Image.ANTIALIAS))
-my_img4 = ImageTk.PhotoImage(Image.open("images/0004.png").resize((500, 500), Image.ANTIALIAS))
-my_img5 = ImageTk.PhotoImage(Image.open("images/0005.png").resize((500, 500), Image.ANTIALIAS))
-
-image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
-
-my_label = Label(image=my_img1)
-my_label.grid(row=0, column=0, columnspan=3)
+global button_back
+global button_forward
+global my_label
 
 
 def back(image_number):
-    global my_label
-    global button_forward
     global button_back
+    global button_forward
+    global my_label
 
     my_label.grid_forget()
     my_label = Label(image=image_list[image_number-1])
@@ -37,9 +28,9 @@ def back(image_number):
 
 
 def forward(image_number):
-    global my_label
-    global button_forward
     global button_back
+    global button_forward
+    global my_label
 
     my_label.grid_forget()
     my_label = Label(image=image_list[image_number-1])
@@ -53,6 +44,21 @@ def forward(image_number):
     button_back.grid(row=1, column=0)
     my_label.grid(row=0, column=0, columnspan=3)
 
+
+root = Tk()
+root.title("Dennis Creative Solutions Image Viewer")
+root.iconbitmap('file.ico')
+
+my_img1 = ImageTk.PhotoImage(Image.open("images/0001.png").resize((500, 500), Image.ANTIALIAS))
+my_img2 = ImageTk.PhotoImage(Image.open("images/0002.png").resize((500, 500), Image.ANTIALIAS))
+my_img3 = ImageTk.PhotoImage(Image.open("images/0003.png").resize((500, 500), Image.ANTIALIAS))
+my_img4 = ImageTk.PhotoImage(Image.open("images/0004.png").resize((500, 500), Image.ANTIALIAS))
+my_img5 = ImageTk.PhotoImage(Image.open("images/0005.png").resize((500, 500), Image.ANTIALIAS))
+
+image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
+
+my_label = Label(image=my_img1)
+my_label.grid(row=0, column=0, columnspan=3)
 
 button_back = Button(root, text="<<", command=back, state=DISABLED)
 button_exit = Button(root, text="Exit Program", command=root.quit)

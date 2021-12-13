@@ -1,30 +1,15 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
-from PIL import ImageTk, Image
 import sqlite3
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-root.geometry("800x600")
-
-# Databases
-
-# Create a database or connect to one
-# conn = sqlite3.connect("address_book.db")
-
-# Create cursor
-# c = conn.cursor()
-
-# Create table
-'''
-c.execute("""CREATE table addresses(
-    first_name text,
-    last_name text,
-    address text,
-    city text,
-    state text,
-    zipcode integer)""")
-'''
+global editor
+global f_name_editor
+global l_name_editor
+global address_editor
+global city_editor
+global state_editor
+global zipcode_editor
 
 
 # Create Function to Delete a record
@@ -83,18 +68,18 @@ def edit():
     zipcode_editor.grid(row=5, column=1, padx=20)
 
     # Create text box labels
-    f_name_label = Label(editor, text="First Name")
-    f_name_label.grid(row=0, column=0, pady=(10, 0))
-    l_name_label = Label(editor, text="Last Name")
-    l_name_label.grid(row=1, column=0)
-    address_label = Label(editor, text="Address")
-    address_label.grid(row=2, column=0)
-    city_label = Label(editor, text="City")
-    city_label.grid(row=3, column=0)
-    state_label = Label(editor, text="State")
-    state_label.grid(row=4, column=0)
-    zipcode_label = Label(editor, text="Zip")
-    zipcode_label.grid(row=5, column=0)
+    f_name_editor_label = Label(editor, text="First Name")
+    f_name_editor_label.grid(row=0, column=0, pady=(10, 0))
+    l_name_editor_label = Label(editor, text="Last Name")
+    l_name_editor_label.grid(row=1, column=0)
+    address_editor_label = Label(editor, text="Address")
+    address_editor_label.grid(row=2, column=0)
+    city_editor_label = Label(editor, text="City")
+    city_editor_label.grid(row=3, column=0)
+    state_editor_label = Label(editor, text="State")
+    state_editor_label.grid(row=4, column=0)
+    zipcode_editor_label = Label(editor, text="Zip")
+    zipcode_editor_label.grid(row=5, column=0)
 
     # Create a Save Button to Save edited Record
     save_btn = Button(editor, text="Save Record", command=update)
@@ -197,6 +182,11 @@ def update():
     editor.destroy()
 
 
+root = Tk()
+root.title("Dennis Creative Solutions")
+root.iconbitmap('file.ico')
+root.geometry("800x600")
+
 # Create text boxes
 f_name = Entry(root, width=30)
 f_name.grid(row=0, column=1, padx=20, pady=(10, 0))
@@ -210,7 +200,6 @@ state = Entry(root, width=30)
 state.grid(row=4, column=1, padx=20)
 zipcode = Entry(root, width=30)
 zipcode.grid(row=5, column=1, padx=20)
-
 delete_box = Entry(root, width=30)
 delete_box.grid(row=9, column=1, pady=5)
 
@@ -227,7 +216,6 @@ state_label = Label(root, text="State")
 state_label.grid(row=4, column=0)
 zipcode_label = Label(root, text="Zip")
 zipcode_label.grid(row=5, column=0)
-
 delete_box_label = Label(root, text="Select ID")
 delete_box_label.grid(row=9, column=0, pady=5)
 
@@ -246,11 +234,5 @@ delete_btn.grid(row=10, column=0, columnspan=2, pady=10, padx=10, ipadx=136)
 # Create an Update Button
 edit_btn = Button(root, text="Edit Record", command=edit)
 edit_btn.grid(row=11, column=0, columnspan=2, pady=10, padx=10, ipadx=143)
-
-# Commit Changes
-# conn.commit()
-
-# Close Connection
-# conn.close()
 
 root.mainloop()

@@ -1,13 +1,12 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
-from PIL import ImageTk, Image
 import sqlite3
 
 root = Tk()
 root.title("Dennis Creative Solutions")
 root.iconbitmap('file.ico')
 root.geometry("800x600")
-
-# Databases
 
 # Create a database or connect to one
 conn = sqlite3.connect("address_book.db")

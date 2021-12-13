@@ -1,22 +1,11 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
 from PIL import ImageTk, Image
 
-root = Tk()
-root.title("Dennis Creative Solutions Image Viewer")
-root.iconbitmap('file.ico')
-
-my_img1 = ImageTk.PhotoImage(Image.open("images/0001.png").resize((500, 500), Image.ANTIALIAS))
-my_img2 = ImageTk.PhotoImage(Image.open("images/0002.png").resize((500, 500), Image.ANTIALIAS))
-my_img3 = ImageTk.PhotoImage(Image.open("images/0003.png").resize((500, 500), Image.ANTIALIAS))
-my_img4 = ImageTk.PhotoImage(Image.open("images/0004.png").resize((500, 500), Image.ANTIALIAS))
-my_img5 = ImageTk.PhotoImage(Image.open("images/0005.png").resize((500, 500), Image.ANTIALIAS))
-
-image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
-
-status = Label(root, text="Image 1 of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
-
-my_label = Label(image=my_img1)
-my_label.grid(row=0, column=0, columnspan=3)
+global my_label
+global button_forward
+global button_back
 
 
 def back(image_number):
@@ -38,8 +27,9 @@ def back(image_number):
     my_label.grid(row=0, column=0, columnspan=3)
 
     # Update status bar
-    status = Label(root, text="Image " + str(image_number) + " of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
-    status.grid(row=2, column=0, columnspan=3, sticky=W+E)
+    status_lbl = Label(root, text="Image " + str(image_number) + " of " + str(len(image_list)), bd=1, relief=SUNKEN,
+                       anchor=E)
+    status_lbl.grid(row=2, column=0, columnspan=3, sticky=W+E)
 
 
 def forward(image_number):
@@ -59,9 +49,27 @@ def forward(image_number):
     button_back.grid(row=1, column=0)
     my_label.grid(row=0, column=0, columnspan=3)
 
-    status = Label(root, text="Image " + str(image_number) + " of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
-    status.grid(row=2, column=0, columnspan=3, sticky=W+E)
+    status_lbl = Label(root, text="Image " + str(image_number) + " of " + str(len(image_list)), bd=1, relief=SUNKEN,
+                       anchor=E)
+    status_lbl.grid(row=2, column=0, columnspan=3, sticky=W+E)
 
+
+root = Tk()
+root.title("Dennis Creative Solutions Image Viewer")
+root.iconbitmap('file.ico')
+
+my_img1 = ImageTk.PhotoImage(Image.open("images/0001.png").resize((500, 500), Image.ANTIALIAS))
+my_img2 = ImageTk.PhotoImage(Image.open("images/0002.png").resize((500, 500), Image.ANTIALIAS))
+my_img3 = ImageTk.PhotoImage(Image.open("images/0003.png").resize((500, 500), Image.ANTIALIAS))
+my_img4 = ImageTk.PhotoImage(Image.open("images/0004.png").resize((500, 500), Image.ANTIALIAS))
+my_img5 = ImageTk.PhotoImage(Image.open("images/0005.png").resize((500, 500), Image.ANTIALIAS))
+
+image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
+
+status = Label(root, text="Image 1 of " + str(len(image_list)), bd=1, relief=SUNKEN, anchor=E)
+
+my_label = Label(image=my_img1)
+my_label.grid(row=0, column=0, columnspan=3)
 
 button_back = Button(root, text="<<", command=back, state=DISABLED)
 button_exit = Button(root, text="Exit Program", command=root.quit)

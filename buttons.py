@@ -1,14 +1,14 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
 
+
+def my_click():
+    my_label = Label(root, text="Look! I clicked a Button!!")
+    my_label.pack()
+
+
 root = Tk()
-
-
-def myClick():
-    myLabel = Label(root, text="Look! I clicked a Button!!")
-    myLabel.pack()
-
-
-myButton = Button(root, text="Click Me!", command=myClick)
+myButton = Button(root, text="Click Me!", command=my_click)
 myButton.pack()
-
 root.mainloop()

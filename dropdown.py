@@ -1,20 +1,21 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
-from PIL import ImageTk, Image
+
+options = [
+    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+]
+
+
+# Dropdown Boxes
+def show():
+    Label(root, text=clicked.get()).pack()
+
 
 root = Tk()
 root.title("Dennis Creative Solutions")
 root.iconbitmap('file.ico')
 root.geometry("800x600")
-
-
-# Drop Down Boxes
-def show():
-    Label(root, text=clicked.get()).pack()
-
-
-options = [
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-]
 
 clicked = StringVar()
 clicked.set(options[0])

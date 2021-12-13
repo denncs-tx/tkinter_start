@@ -1,15 +1,16 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
-from PIL import ImageTk, Image
-
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-root.geometry("800x600")
 
 
 def show():
     Label(root, text=var.get()).pack()
 
+
+root = Tk()
+root.title("Dennis Creative Solutions")
+root.iconbitmap('file.ico')
+root.geometry("800x600")
 
 var = StringVar()
 

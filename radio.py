@@ -1,12 +1,6 @@
+# TODO: Improve with a __main__
+# TODO: Make into a class that gets instantiated
 from tkinter import *
-from PIL import ImageTk, Image
-
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-
-# r = IntVar()
-# r.set("2")
 
 TOPPINGS = [
     ("Pepperoni", "Pepperoni"),
@@ -15,23 +9,21 @@ TOPPINGS = [
     ("Onion", "Onion"),
 ]
 
+
+def clicked(value):
+    my_label = Label(root, text=value)
+    my_label.pack()
+
+
+root = Tk()
+root.title("Dennis Creative Solutions")
+root.iconbitmap('file.ico')
+
 pizza = StringVar()
 pizza.set("Pepperoni")
 
 for text, topping in TOPPINGS:
     Radiobutton(root, text=text, variable=pizza, value=topping).pack(anchor=W)
-
-
-def clicked(value):
-    myLabel = Label(root, text=pizza.get())
-    myLabel.pack()
-
-
-# Radiobutton(root, text="Option 1", variable=r, value=1, command=lambda: clicked(r.get())).pack()
-# Radiobutton(root, text="Option 2", variable=r, value=2, command=lambda: clicked(r.get())).pack()
-
-# myLabel = Label(root, text=pizza.get())
-# myLabel.pack()
 
 myButton = Button(root, text="Click Me!", command=lambda: clicked(pizza.get()))
 myButton.pack()
