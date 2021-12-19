@@ -1,28 +1,18 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
-
-options = [
-    "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-]
+from denncs import DennCSApp, tk, ttk
 
 
-# Dropdown Boxes
-def show():
-    Label(root, text=clicked.get()).pack()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        options = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        self._clicked = tk.StringVar()
+        ttk.OptionMenu(self, self._clicked, options[0], *options).pack()
+        ttk.Button(self, text="Show Selection", command=self._show).pack()
+
+    def _show(self):
+        ttk.Label(self, text=self._clicked.get()).pack()
 
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-root.geometry("800x600")
-
-clicked = StringVar()
-clicked.set(options[0])
-
-drop = OptionMenu(root, clicked, *options)
-drop.pack()
-
-Button(root, text="Show Selection", command=show).pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    app = MyApp()
+    app.mainloop()

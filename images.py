@@ -1,17 +1,15 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, ttk
 from PIL import ImageTk, Image
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
 
-my_img = ImageTk.PhotoImage(Image.open("images/0030.png").resize((500, 500), Image.ANTIALIAS))
-my_label = Label(image=my_img)
-my_label.pack()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        self._my_img = ImageTk.PhotoImage(Image.open("images/0030.png").resize((500, 500), Image.ANTIALIAS))
+        ttk.Label(image=self._my_img).pack()
+        ttk.Button(self, text="Exit Program", command=self.quit).pack()
 
-button_quit = Button(root, text="Exit Program", command=root.quit)
-button_quit.pack()
 
-root.mainloop()
+if __name__ == '__main__':
+    app = MyApp()
+    app.mainloop()

@@ -1,23 +1,17 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, tk, ttk
 
 
-def show():
-    Label(root, text=var.get()).pack()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        self._var = tk.IntVar()
+        ttk.Checkbutton(self, text="Check this box, I dare you!", variable=self._var).pack()
+        ttk.Button(self, text="Show Select", command=self._show).pack()
+
+    def _show(self):
+        ttk.Label(self, text=self._var.get()).pack()
 
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-root.geometry("800x600")
-
-var = StringVar()
-
-c = Checkbutton(root, text="Check this box, I dare you!", variable=var, onvalue="On", offvalue="Off")
-c.deselect()
-c.pack()
-
-Button(root, text="Show Select", command=show).pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    app = MyApp()
+    app.mainloop()

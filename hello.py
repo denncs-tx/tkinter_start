@@ -1,12 +1,13 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, ttk
 
-root = Tk()
 
-# Creating a label widget
-myLabel = Label(root, text="Hello World!")
-# Shoving it onto the screen
-myLabel.pack()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        my_label = ttk.Label(self, text="Hello World!")
+        my_label.grid(column=0, row=0)
 
-root.mainloop()
+
+if __name__ == "__main__":
+    app = MyApp()
+    app.mainloop()

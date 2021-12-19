@@ -1,17 +1,15 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, ttk
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
 
-frame = LabelFrame(root, padx=50, pady=50)
-frame.pack(padx=10, pady=10)
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        frame = ttk.LabelFrame(self, text="Choose", padding="10")
+        frame.pack(padx=10, pady=10)
+        ttk.Button(frame, text="Don't Click Here!").grid(row=0, column=0)
+        ttk.Button(frame, text="...or here!").grid(row=1, column=1)
 
-b = Button(frame, text="Don't Click Here!")
-b2 = Button(frame, text="...or here!")
-b.grid(row=0, column=0)
-b2.grid(row=1, column=1)
 
-root.mainloop()
+if __name__ == '__main__':
+    app = MyApp()
+    app.mainloop()
