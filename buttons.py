@@ -1,14 +1,15 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, ttk
 
 
-def my_click():
-    my_label = Label(root, text="Look! I clicked a Button!!")
-    my_label.pack()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        ttk.Button(self, text="Click Me!", command=self._my_click).pack()
+
+    def _my_click(self):
+        ttk.Label(self, text="Look! I clicked a Button!!").pack()
 
 
-root = Tk()
-myButton = Button(root, text="Click Me!", command=my_click)
-myButton.pack()
-root.mainloop()
+if __name__ == "__main__":
+    app = MyApp()
+    app.mainloop()

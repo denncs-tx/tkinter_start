@@ -1,22 +1,20 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, ttk
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def graph():
-    house_prices = np.random.normal(200000, 25000, 5000)
-    plt.polar(house_prices)
-    plt.show()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        ttk.Button(self, text="Graph It!", command=self._graph).pack()
+
+    @staticmethod
+    def _graph():
+        house_prices = np.random.normal(20000, 25000, 5000)
+        plt.polar(house_prices)
+        plt.show()
 
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-root.geometry("800x600")
-
-my_button = Button(root, text="Graph It!", command=graph)
-my_button.pack()
-
-root.mainloop()
+if __name__ == '__main__':
+    app = MyApp()
+    app.mainloop()

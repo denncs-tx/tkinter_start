@@ -1,5 +1,4 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
+# NOTE: This is not being converted to DennCSApp framework because "status.py" encompasses this functionality
 from tkinter import *
 from PIL import ImageTk, Image
 

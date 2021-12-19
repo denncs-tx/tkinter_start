@@ -1,31 +1,24 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
-
-TOPPINGS = [
-    ("Pepperoni", "Pepperoni"),
-    ("Cheese", "Cheese"),
-    ("Mushroom", "Mushroom"),
-    ("Onion", "Onion"),
-]
+from denncs import DennCSApp, tk, ttk
 
 
-def clicked(value):
-    my_label = Label(root, text=value)
-    my_label.pack()
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        self._pizza = tk.StringVar(self, "Pepperoni")
+        self._toppings = [
+            ("Pepperoni", "Pepperoni"),
+            ("Cheese", "Cheese"),
+            ("Mushroom", "Mushroom"),
+            ("Onion", "Onion"),
+        ]
+        for text, topping in self._toppings:
+            ttk.Radiobutton(self, text=text, variable=self._pizza, value=topping).pack(anchor=tk.W)
+        ttk.Button(self, text="Click Me!", command=lambda: self._clicked(self._pizza.get())).pack()
+
+    def _clicked(self, value):
+        ttk.Label(self, text=value).pack()
 
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-
-pizza = StringVar()
-pizza.set("Pepperoni")
-
-for text, topping in TOPPINGS:
-    Radiobutton(root, text=text, variable=pizza, value=topping).pack(anchor=W)
-
-myButton = Button(root, text="Click Me!", command=lambda: clicked(pizza.get()))
-myButton.pack()
-
-root.mainloop()
+if __name__ == '__main__':
+    app = MyApp()
+    app.mainloop()

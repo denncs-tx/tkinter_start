@@ -1,60 +1,53 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-# https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json&zipCode=76210&distance=5&API_KEY=652EFF35-ABCB-41DD-B1BB-58BD1D10EFF2
-# Sample Return Object
-# [
-# {"DateObserved":"2021-12-12 ","HourObserved":7,"LocalTimeZone":"CST","ReportingArea":"Dallas-Fort Worth","StateCode":"TX","Latitude":32.767,"Longitude":-96.783,"ParameterName":"O3","AQI":24,"Category":{"Number":1,"Name":"Good"}},
-# {"DateObserved":"2021-12-12 ","HourObserved":7,"LocalTimeZone":"CST","ReportingArea":"Dallas-Fort Worth","StateCode":"TX","Latitude":32.767,"Longitude":-96.783,"ParameterName":"PM2.5","AQI":59,"Category":{"Number":2,"Name":"Moderate"}}
-# ]
-from tkinter import *
-import requests
+from denncs import DennCSApp, tk, ttk
 import json
+import requests
 
 
-# Create Zipcode Lookup function
-def zip_lookup():
-    try:
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        self._api_key = "API KEY"
+        self._base_url = "https://www.airnowapi.org/aq/observation/zipCode/current/"
+        self._zip_entry = ttk.Entry(self)
+        self._aq_label = ttk.Label(self, text=f"Please search for a zip code...", font=("Consolas", 14))
+        self._zip_entry.grid(row=0, column=0, sticky=tk.W + tk.N + tk.E + tk.W)
+        self._aq_label.grid(row=1, column=0, columnspan=2)
+        ttk.Button(self, text="Lookup Zipcode", command=self._zip_lookup).grid(row=0, column=1)
+
+    def _zip_lookup(self):
         weather_color = "#000000"
-        api_request = requests.get("https://www.airnowapi.org/aq/observation/zipCode/current/?format=application/json"
-                                   "&zipCode=" + str(zipEntry.get()) + "&distance=5&API_KEY=652EFF35-ABCB-41DD-B1BB"
-                                                                       "-58BD1D10EFF2")
-        api = json.loads(api_request.content)
-        city = api[0]['ReportingArea']
-        quality = api[0]['AQI']
-        category = api[0]['Category']['Name']
+        try:
+            zip_code = str(self._zip_entry.get())
+            api_request = requests.get(f"{self._base_url}?format=application/json&zipCode={zip_code}&"
+                                       f"distance=5&API_KEY={self._api_key}")
+            api = json.loads(api_request.content)
+            city = api[0]['ReportingArea']
+            quality = api[0]['AQI']
+            category = api[0]['Category']['Name']
 
-        if category == "Good":
-            weather_color = "#0c0"
-        elif category == "Moderate":
-            weather_color = "#ffff00"
-        elif category == "Unhealthy for Sensitive Groups":
-            weather_color = "#ff9900"
-        elif category == "Unhealthy":
-            weather_color = "#ff0000"
-        elif category == "Very Unhealthy":
-            weather_color = "#990066"
-        elif category == "Hazardous":
-            weather_color = "#660000"
+            if category == "Good":
+                weather_color = "#0c0"
+            elif category == "Moderate":
+                weather_color = "#ffff00"
+            elif category == "Unhealthy for Sensitive Groups":
+                weather_color = "#ff9900"
+            elif category == "Unhealthy":
+                weather_color = "#ff0000"
+            elif category == "Very Unhealthy":
+                weather_color = "#990066"
+            elif category == "Hazardous":
+                weather_color = "#660000"
 
-        root.configure(background=weather_color)
-        my_label = Label(root, text=f"{city} Air Quality {str(quality)} {category}", font=("Consolas", 14),
-                         background=weather_color)
-        my_label.grid(row=1, column=0, columnspan=2)
-    except Exception as e:
-        my_label = Label(root, text="Unable to retrieve information", font=("Consolas", 14), background=weather_color,
-                         foreground="white")
-        my_label.grid(row=1, column=0, columnspan=2)
+            self.configure(background=weather_color)
+            self._aq_label.configure(text=f"{city} Air Quality {str(quality)} {category}", background=weather_color)
+        except IndexError as ie:
+            self.configure(background=weather_color)
+            self._aq_label.configure(text="Information Unavailable", background=weather_color, foreground="white")
+        except json.decoder.JSONDecodeError as jde:
+            self.configure(background=weather_color)
+            self._aq_label.configure(text=repr(jde), background=weather_color, foreground="white")
 
 
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-root.geometry("800x600")
-
-zipEntry = Entry(root)
-zipEntry.grid(row=0, column=0, sticky=W+N+E+S)
-
-zipButton = Button(root, text="Lookup Zipcode", command=zip_lookup)
-zipButton.grid(row=0, column=1)
-
-root.mainloop()
+if __name__ == '__main__':
+    app = MyApp()
+    app.mainloop()

@@ -1,27 +1,26 @@
-# TODO: Improve with a __main__
-# TODO: Make into a class that gets instantiated
-from tkinter import *
+from denncs import DennCSApp, ttk
 from PIL import ImageTk, Image
 from tkinter import filedialog
 
-global my_img
+
+class MyApp(DennCSApp):
+    def __init__(self):
+        super().__init__()
+        self._my_img = None
+        self._img_lbl = ttk.Label(self, image=self._my_img)
+        self._file_lbl = ttk.Label(self, text="")
+        ttk.Button(self, text="Open File", command=self._open_file).pack()
+        self._img_lbl.pack()
+        self._file_lbl.pack()
+
+    def _open_file(self):
+        filename = filedialog.askopenfilename(initialdir="images", title="Select A File",
+                                              filetypes=(("PNG File", "*.png"), ("Any File", "*.*")))
+        self._my_img = ImageTk.PhotoImage(Image.open(filename).resize((500, 500), Image.ANTIALIAS))
+        self._img_lbl.configure(image=self._my_img)
+        self._file_lbl.configure(text=filename)
 
 
-def open_file():
-    global my_img
-    root.filename = filedialog.askopenfilename(initialdir="/Users/dennc/PycharmProjects/tkinter_start", title="Select "
-                                                                                                              "A "
-                                                                                                              "File",
-                                               filetypes=(("PNG Files", "*.png"), ("All Files", "*.*")))
-    my_img = ImageTk.PhotoImage(Image.open(root.filename).resize((500, 500), Image.ANTIALIAS))
-    my_label = Label(image=my_img)
-    my_label.pack()
-
-
-root = Tk()
-root.title("Dennis Creative Solutions")
-root.iconbitmap('file.ico')
-
-Button(root, text="Open File", command=open_file).pack()
-
-root.mainloop()
+if __name__ == "__main__":
+    app = MyApp()
+    app.mainloop()
